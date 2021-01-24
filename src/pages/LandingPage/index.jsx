@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Cosmic from 'cosmicjs';
+import styled from 'styled-components';
 
 const LandingPage = () => {
 	const [ pageData, setPageData ] = useState(null);
@@ -14,7 +15,7 @@ const LandingPage = () => {
 		bucket
 			.getObject({
 				slug: 'the-local-yokel',
-				props: 'slug,title,content'
+				props: 'slug,title,content,metadata'
 			})
 			.then((data) => {
 				console.log(data);
@@ -31,16 +32,50 @@ const LandingPage = () => {
 
 	function renderPage() {
 		return (
-			<main>
-				<h1>{pageData.title}</h1>
-
+			<MainBase>
 				<div dangerouslySetInnerHTML={{ __html: pageData.content }} />
-			</main>
+			</MainBase>
 		);
 	}
 
 	return <React.Fragment>{pageData === null ? renderSkeleton() : renderPage()}</React.Fragment>;
 };
+const MainBase = styled.main`
+	height: 100vh;
+	position: relative;
+
+	div {
+		h1,
+		h2 {
+			position: absolute;
+			z-index: 99;
+			color: white;
+		}
+
+		h1 {
+			left: 10%;
+			bottom: 35%;
+			font-size: 4rem;
+		}
+
+		h2 {
+			right: 20%;
+			font-size: 9rem;
+			width: fit-content;
+			bottom: 10%;
+		}
+
+		p {
+			width: 100vw;
+			height: 100vh;
+			top: 0;
+			img {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+			}
+		}
+	}
+`;
 
 export default LandingPage;
-//{pageData === null ? renderSkeleton() : renderPage()}
