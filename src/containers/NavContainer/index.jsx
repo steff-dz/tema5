@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import Cosmic from 'cosmicjs';
 import styled from 'styled-components';
+import NavItem from '../../components/NavItem';
 
-const Navigation = () => {
+const NavContainer = () => {
 	const [ navData, setNavData ] = useState(null);
 
 	useEffect(() => {
@@ -13,12 +14,13 @@ const Navigation = () => {
 		});
 
 		bucket
-			.getObject({
-				slug: 'navigation',
-				props: 'slug,title,content'
+			.getObjects({
+				type: 'navlinks',
+				limit: 5,
+				props: 'title,slug'
 			})
 			.then((data) => {
-				setNavData(data.object);
+				setNavData(data);
 			})
 			.catch((error) => {
 				console.log(error);
@@ -26,35 +28,40 @@ const Navigation = () => {
 	}, []);
 
 	function renderSkel() {
-		return <p>loading page...</p>;
+		return <p>Loading...</p>;
 	}
 
 	function renderNav() {
-		return <NavBase dangerouslySetInnerHTML={{ __html: navData.content }} />;
+		return (
+			<NavBase>
+				<ul>
+					{navData.objects.map((item) => {
+						return <NavItem key={item.slug} title={item.title} url={`/${item.slug}`} />;
+					})}
+				</ul>
+			</NavBase>
+		);
 	}
 
 	return <React.Fragment>{navData === null ? renderSkel() : renderNav()}</React.Fragment>;
 };
 
-export default Navigation;
-
 const NavBase = styled.nav`
-	width: 100vw;
-	z-index: 100;
 	position: absolute;
-	padding: 0 2rem;
-	margin-top: 0.5rem;
+	z-index: 100;
+	margin-top: .5rem;
 
 	ul {
 		display: flex;
+		flex-direction: row-reverse;
 		list-style: none;
-		font-size: 2.5rem;
-		color: white;
-		align-items: baseline;
-		font-weight: bold;
+		gap: 1rem;
+		padding-left: 5rem;
 
-		li {
-			padding-right: 1rem;
+		.nav-item {
+			text-decoration: none;
+			color: white;
+			font-size: 2rem;
 
 			&:hover {
 				text-decoration: underline;
@@ -62,3 +69,13 @@ const NavBase = styled.nav`
 		}
 	}
 `;
+
+export default NavContainer;
+
+/* <NavBase>
+<ul>
+    {navData.objects.map((item) => {
+        return <li>{item.title}</li>;
+    })}
+</ul>
+</NavBase> */

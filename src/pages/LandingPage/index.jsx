@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Navigation from '../../components/Navigation';
+//import NavContainer from '../../containers/NavContainer';
 import Cosmic from 'cosmicjs';
 import styled from 'styled-components';
 
@@ -39,12 +39,7 @@ const LandingPage = () => {
 		);
 	}
 
-	return (
-		<React.Fragment>
-			<Navigation />
-			{pageData === null ? renderSkeleton() : renderPage()}
-		</React.Fragment>
-	);
+	return <React.Fragment>{pageData === null ? renderSkeleton() : renderPage()}</React.Fragment>;
 };
 const MainBase = styled.main`
 	height: 100vh;
@@ -77,7 +72,6 @@ const MainBase = styled.main`
 			img {
 				width: 100%;
 				height: 100%;
-				object-fit: cover;
 			}
 		}
 	}
