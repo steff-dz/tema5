@@ -1,10 +1,10 @@
 import React from 'react';
 import GlobalStyle from './components/GlobalStyle';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-//import Navigation from './components/Navigation';
 import NavContainer from './containers/NavContainer';
 import LandingPage from './pages/LandingPage';
 import GuidePage from './pages/GuidePage';
+import InfoPage from './pages/InfoPage';
 
 function App() {
 	return (
@@ -16,6 +16,7 @@ function App() {
 					<Switch>
 						<Route exact path="/" component={LandingPage} />
 						<Route exact path="/guide" component={GuidePage} />
+						<Route exact path="/info" component={InfoPage} />
 					</Switch>
 				</Route>
 			</Router>

@@ -47,9 +47,15 @@ const NavContainer = () => {
 };
 
 const NavBase = styled.nav`
-	position: absolute;
+	/* position: absolute; */
+	position: fixed;
 	z-index: 100;
 	margin-top: .5rem;
+	background-color: black;
+	padding: 1rem;
+	border-radius: 0 15px 15px 0;
+	opacity: .8;
+	top: 0;
 
 	ul {
 		display: flex;

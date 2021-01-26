@@ -19,7 +19,6 @@ const LandingPage = () => {
 				props: 'slug,title,content,metadata'
 			})
 			.then((data) => {
-				console.log(data);
 				setPageData(data.object);
 			})
 			.catch((error) => {
@@ -68,10 +67,11 @@ const MainBase = styled.main`
 
 		p {
 			/* height: 100vh; */
-			top: 0;
+
 			img {
 				width: 100%;
 				height: 100%;
+				/* position: absolute; */
 			}
 		}
 	}
