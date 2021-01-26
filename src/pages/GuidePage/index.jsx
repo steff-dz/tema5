@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Cosmic from 'cosmicjs';
+import MyMap from '../../components/MyMap';
 
 const GuidePage = () => {
 	const [ pageData, setPageData ] = useState(null);
@@ -32,7 +33,7 @@ const GuidePage = () => {
 	function renderPage() {
 		return (
 			<MainBase>
-				<div dangerouslySetInnerHTML={{ __html: pageData.content }} />
+				<MyMap />
 			</MainBase>
 		);
 	}
@@ -45,3 +46,5 @@ const MainBase = styled.main`
 	margin-top: 6%;
 `;
 export default GuidePage;
+
+//<div dangerouslySetInnerHTML={{ __html: pageData.content }} />
