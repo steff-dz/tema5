@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Cosmic from 'cosmicjs';
 import Mapbox from 'mapbox-gl';
-import MapMarker from '../../components/MapMarker';
+import PopUpCard from '../../components/PopUpCard';
 
 let map = null;
 
@@ -37,7 +37,7 @@ const MyMap = () => {
 			style: 'mapbox://styles/mapbox/streets-v11',
 			zoom: 8,
 			center: [ -87.88100395517584, 41.86044985988897 ]
-		}).on('zoom', (event) => handleMapZoom(event)); //can I attach this somewhere else? write map.on('zoom', etc) outside of where it is declared/rendered?
+		});
 	}, []);
 
 	useEffect(
@@ -46,17 +46,27 @@ const MyMap = () => {
 				return;
 			} else {
 				mapMarkersState.map((item) => {
-					new Mapbox.Marker().setLngLat([ item.metafields[0].value, item.metafields[1].value ]).addTo(map);
+					new Mapbox.Marker()
+						.setLngLat([ item.metafields[0].value, item.metafields[1].value ])
+						.setPopup(new Mapbox.Popup().setHTML(`<div>${item.metafields[4].value}</div>`))
+						.addTo(map);
 				});
 			}
 		},
 		[ mapMarkersState ]
 	);
 
-	function handleMapZoom(event) {
+	// function handleMapZoom(event) {
+	// 	console.log(event);
+	// }
+	function showName(event) {
 		console.log(event);
 	}
 
 	return <div style={{ height: '700px' }} ref={mapElement} />;
 };
 export default MyMap;
+
+//.on('zoom', (event) => handleMapZoom(event));
+//can I attach this somewhere else? write map.on('zoom', etc) outside of where it is declared/rendered?
+//.on('click', (event) => showName(event));
