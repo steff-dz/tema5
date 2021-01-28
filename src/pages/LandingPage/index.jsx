@@ -66,7 +66,7 @@ const MainBase = styled.main`
 		}
 
 		p {
-			/* height: 100vh; */
+			height: 100vh;
 
 			img {
 				width: 100%;

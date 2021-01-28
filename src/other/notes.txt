@@ -1,0 +1,3 @@
+Here are just some notes from school from Thursday 28, January. 
+
+-- might want to load the page info with a useEffect that listens to pageData state

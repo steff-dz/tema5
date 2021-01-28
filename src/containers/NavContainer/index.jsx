@@ -16,7 +16,6 @@ const NavContainer = () => {
 		bucket
 			.getObjects({
 				type: 'navlinks',
-				limit: 5,
 				props: 'title,slug'
 			})
 			.then((data) => {
