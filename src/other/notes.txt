@@ -1,3 +1,19 @@
 Here are just some notes from school from Thursday 28, January. 
 
 -- might want to load the page info with a useEffect that listens to pageData state
+-- make a different component for plotly. 
+
+-- I should consider not making 2 different calls to Cosmic in the guide page for guide and map; combine them som how and evaluate if I need that guide page at all.
+
+
+
+
+QUESTIONS: 
+-- do ALL components have to be totally re-useable? If they are not, should I put them maybe in a different folder, call them something else?
+-- Our project can be many pages, right? We dont need to put the map and info-graphs in the same page?
+-- we need to put a graph/infograph thing AS a mapmarker popup??? 
+
+COORDINATES-------------------------
+Krispy Kreme: 41.8845379440457, -87.62821044675992
+Polak Hall: 41.80610311274018, -87.71770962907857
+Six Flags: 42.3714824214615, -87.93631676682776

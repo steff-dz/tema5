@@ -60,22 +60,3 @@ const MyMap = () => {
 	return <div style={{ height: '700px' }} ref={mapElement} />;
 };
 export default MyMap;
-
-// data.objects.forEach((item) => {
-// 	console.log(item.title);
-// 	return (
-// 		<MapMarker long={item.metafields[0].value} lat={item.metafields[1].value} key={item.title} map={map}/>
-// 	);
-
-// });
-// mapMarkersState.map((item) => {
-// 	console.log(item.title);
-// 	return (
-// 		<MapMarker
-// 			long={item.metafields[0].value}
-// 			lat={item.metafields[1].value}
-// 			key={item.title}
-// 			map={map}
-// 		/>
-// 	);
-// });
