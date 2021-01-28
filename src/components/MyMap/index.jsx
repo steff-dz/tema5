@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Cosmic from 'cosmicjs';
 import Mapbox from 'mapbox-gl';
-import PopUpCard from '../../components/PopUpCard';
 
 let map = null;
 
@@ -46,9 +45,15 @@ const MyMap = () => {
 				return;
 			} else {
 				mapMarkersState.map((item) => {
+					let popUpCard = `
+						<div>
+						<h3>${item.metafields[4].value}</h3>
+						<p>${item.metafields[2].value}</p>
+						</div>
+						`;
 					new Mapbox.Marker()
 						.setLngLat([ item.metafields[0].value, item.metafields[1].value ])
-						.setPopup(new Mapbox.Popup().setHTML(`<div>${item.metafields[4].value}</div>`))
+						.setPopup(new Mapbox.Popup().setHTML(popUpCard))
 						.addTo(map);
 				});
 			}
@@ -70,3 +75,4 @@ export default MyMap;
 //.on('zoom', (event) => handleMapZoom(event));
 //can I attach this somewhere else? write map.on('zoom', etc) outside of where it is declared/rendered?
 //.on('click', (event) => showName(event));
+//.setHTML(`<div>${item.metafields[4].value}</div>`)
