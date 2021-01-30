@@ -33,6 +33,7 @@ const GuidePage = () => {
 	function renderPage() {
 		return (
 			<MainBase>
+				<section>Info will be posted here.</section>
 				<MyMap />
 			</MainBase>
 		);
@@ -41,9 +42,13 @@ const GuidePage = () => {
 };
 
 const MainBase = styled.main`
+	margin: 0 auto;
 	height: 100vh;
+	width: 98vw;
 	border: 1px solid black;
 	margin-top: 6%;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
 `;
 export default GuidePage;
 
