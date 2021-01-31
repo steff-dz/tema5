@@ -1,45 +1,27 @@
 import React, { useState, useEffect, useRef } from 'react';
-import Cosmic from 'cosmicjs';
+//import Cosmic from 'cosmicjs';
 import Mapbox from 'mapbox-gl';
 import styled from 'styled-components';
 
 let map = null;
+let yelpKey = process.env.YELP_API_KEY;
 
-const MyMap = () => {
-	const [ mapMarkersState, setMapMarkersState ] = useState([]);
-
+const MyMap = ({ mapMarkersState }) => {
 	const mapElement = useRef();
 	Mapbox.accessToken = process.env.MAPBOX_API_KEY;
+	const corsURL = 'https://cors-anywhere.herokuapp.com/';
 
-	useEffect(() => {
-		const client = new Cosmic();
-		const bucket = client.bucket({
-			slug: process.env.BUCKET_SLUG,
-			read_key: process.env.READ_KEY
-		});
-
-		bucket
-			.getObjects({
-				type: 'mapmarkers',
-				props: 'title,slug,content,metafields'
-			})
-			.then((data) => {
-				setMapMarkersState(data.objects);
-			})
-			.catch((error) => {
-				console.log(error);
-			});
-	}, []);
-
+	//This useEffect is calling and creating a map
 	useEffect(() => {
 		map = new Mapbox.Map({
 			container: mapElement.current,
 			style: 'mapbox://styles/mapbox/streets-v11',
-			zoom: 8.4,
-			center: [ -87.99978817047791, 41.99604652933358 ]
+			zoom: 9.8,
+			center: [ -87.7097118608932, 41.84494319092727 ]
 		});
 	}, []);
 
+	//this useEffect is creating markers on the map from Cosmic JS so long as the state holding the map marker information is not empty.
 	useEffect(
 		() => {
 			if (mapMarkersState === null) {
@@ -65,17 +47,30 @@ const MyMap = () => {
 		[ mapMarkersState ]
 	);
 
-	// function handleMapZoom(event) {
-	// 	console.log(event);
-	// }
-	function showName(event) {
-		console.log(event);
-	}
+	useEffect(() => {
+		if (map === null) {
+			return;
+		} else {
+			console.log('poop');
+			fetch(`${corsURL}https://api.yelp.com/v3/businesses/fleetwood-roller-rink-summit-argo/reviews`, {
+				headers: {
+					Authorization: `Bearer ${yelpKey}`
+				}
+			})
+				.then((response) => response.json())
+				.then((data) => {
+					console.log(data);
+				})
+				.catch((error) => {
+					console.log(error);
+				});
+		}
+	}, []);
 
 	return <MapBase ref={mapElement} />;
 };
-export default MyMap;
 
+//styling the map element.
 const MapBase = styled.div`
 	height: 100%;
 	width: 100%;
@@ -90,8 +85,36 @@ const MapBase = styled.div`
 		}
 	}
 `;
+export default MyMap;
 
 //.on('zoom', (event) => handleMapZoom(event));
 //can I attach this somewhere else? write map.on('zoom', etc) outside of where it is declared/rendered?
 //.on('click', (event) => showName(event));
 //.setHTML(`<div>${item.metafields[4].value}</div>`)
+
+// function handleMapZoom(event) {
+// 	console.log(event);
+// }
+
+//This is just testing functionality.
+// function showName(event) {
+// 	console.log(event);
+// }
+
+// const fetchThings = async () => {
+// 	const data = await axios
+// 		.get(
+// 			`${'https://cors-anywhere.herokuapp.com/'}https://api.yelp.com/v3/businesses/fleetwood-roller-rink-summit-argo/reviews`,
+// 			{
+// 				headers: {
+// 					Authorization: `Bearer ${process.env.YELP_API_KEY}`
+// 				}
+// 			}
+// 		)
+// 		.then((res) => {
+// 			console.log(res.data);
+// 		})
+// 		.catch((error) => {
+// 			console.log(error);
+// 		});
+// };

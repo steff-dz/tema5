@@ -5,9 +5,11 @@ import MyMap from '../../components/MyMap';
 
 const GuidePage = () => {
 	const [ pageData, setPageData ] = useState(null);
+	const [ mapMarkersState, setMapMarkersState ] = useState([]);
 
 	useEffect(() => {
 		const client = new Cosmic();
+
 		const bucket = client.bucket({
 			slug: process.env.BUCKET_SLUG,
 			read_key: process.env.READ_KEY
@@ -24,6 +26,23 @@ const GuidePage = () => {
 			.catch((error) => {
 				console.log(error);
 			});
+
+		const bucket2 = client.bucket({
+			slug: process.env.BUCKET_SLUG,
+			read_key: process.env.READ_KEY
+		});
+
+		bucket
+			.getObjects({
+				type: 'mapmarkers',
+				props: 'title,slug,content,metafields'
+			})
+			.then((data) => {
+				setMapMarkersState(data.objects);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
 	}, []);
 
 	function renderSkeleton() {
@@ -34,7 +53,7 @@ const GuidePage = () => {
 		return (
 			<MainBase>
 				<section>Info will be posted here.</section>
-				<MyMap />
+				<MyMap mapMarkersState={mapMarkersState} />
 			</MainBase>
 		);
 	}
@@ -53,3 +72,4 @@ const MainBase = styled.main`
 export default GuidePage;
 
 //<div dangerouslySetInnerHTML={{ __html: pageData.content }} />
+//<MyMap />
