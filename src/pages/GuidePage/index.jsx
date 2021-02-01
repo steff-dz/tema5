@@ -2,17 +2,18 @@ import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import Cosmic from 'cosmicjs';
 import Mapbox from 'mapbox-gl';
+import DefaultCard from '../../components/DefaultCard';
 import InfoCard from '../../components/InfoCard';
 import Marker from '../../other/marker.png';
 //"Turning Off" the test char to focus on the info card
 //import TestChart from '../../components/TestChart';
-//import MyMap from '../../components/MyMap';
 let map = null;
 
 const GuidePage = () => {
 	//The States I Need-------------------------------------------
 	const [ pageData, setPageData ] = useState(null);
 	const [ mapMarkersState, setMapMarkersState ] = useState([]);
+	const [ venue, setVenue ] = useState(null);
 
 	//Extra things I will need-----------------------------------------
 	const mapElement = useRef();
@@ -65,7 +66,7 @@ const GuidePage = () => {
 				map = new Mapbox.Map({
 					container: mapElement.current,
 					style: 'mapbox://styles/mapbox/streets-v11',
-					zoom: 9.8,
+					zoom: 10,
 					center: [ -87.7097118608932, 41.84494319092727 ]
 				});
 			}
@@ -83,21 +84,22 @@ const GuidePage = () => {
 					let el = document.createElement('div');
 
 					el.className = 'my-marker';
-
-					el.setAttribute('data-name', `${item.metafields[5].value}`);
+					el.setAttribute('data-name', `${item.title}`);
 					el.style.backgroundImage =
 						'url("https://pics.freeicons.io/uploads/icons/png/4482957981557740362-512.png")';
+
 					el.addEventListener('click', function() {
-						console.log('hi');
-						console.log(el.getAttribute('data-name'));
+						//console.log(el.getAttribute('data-name'));
+						let selectedVenue = el.getAttribute('data-name');
+						let venueToPass = mapMarkersState.find((el) => el.title === selectedVenue);
+						setVenue(venueToPass);
 					});
 
 					let popUpCard = `
 					<div class="popup-card">
 					<h3>${item.metafields[4].value}</h3>
 					<p>${item.metafields[2].value}</p>
-					<img src="https://imgix.cosmicjs.com/${item.metafields[3].value}" alt="photo of location">
-					<p>${item.content}</p>
+				
 					</div>
 					`;
 
@@ -115,12 +117,25 @@ const GuidePage = () => {
 		return <p>Loading page...</p>;
 	}
 
+	function defaultCard() {
+		return <DefaultCard />;
+	}
+
+	function renderInfoCard() {
+		return (
+			<InfoCard
+				name={venue.metafields[4].value}
+				image={venue.metafields[3].value}
+				descrip={item.content}
+				yelpID={venue.metafields[5].value}
+			/>
+		);
+	}
+
 	function renderPage() {
 		return (
 			<MainBase>
-				<section>
-					<InfoCard />
-				</section>
+				<section>{venue === null ? defaultCard() : renderInfoCard()}</section>
 				<div id="map-container" ref={mapElement} />
 			</MainBase>
 		);
