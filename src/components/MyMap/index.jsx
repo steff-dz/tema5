@@ -1,15 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
-//import Cosmic from 'cosmicjs';
 import Mapbox from 'mapbox-gl';
 import styled from 'styled-components';
 
 let map = null;
-//let yelpKey = process.env.YELP_API_KEY;
 
 const MyMap = ({ mapMarkersState }) => {
 	const mapElement = useRef();
+
 	Mapbox.accessToken = process.env.MAPBOX_API_KEY;
-	//const corsURL = 'https://cors-anywhere.herokuapp.com/';
 
 	//This useEffect is calling and creating a map
 	useEffect(() => {
@@ -28,6 +26,15 @@ const MyMap = ({ mapMarkersState }) => {
 				return;
 			} else {
 				mapMarkersState.map((item) => {
+					let el = document.createElement('div');
+					el.className = 'my-marker';
+
+					el.setAttribute('data-name', `${item.metafields[5].value}`);
+					el.addEventListener('click', function() {
+						console.log('hi');
+						console.log(el.getAttribute('data-name'));
+					});
+
 					let popUpCard = `
 						<div class="popup-card">
 						<h3>${item.metafields[4].value}</h3>
@@ -37,35 +44,21 @@ const MyMap = ({ mapMarkersState }) => {
 						</div>
 						`;
 
-					new Mapbox.Marker()
+					new Mapbox.Marker(el)
 						.setLngLat([ item.metafields[0].value, item.metafields[1].value ])
 						.setPopup(new Mapbox.Popup().setHTML(popUpCard))
 						.addTo(map);
+
+					//console.log(marker.getPopup());
 				});
 			}
 		},
 		[ mapMarkersState ]
 	);
 
-	// useEffect(() => {
-	// 	if (map === null) {
-	// 		return;
-	// 	} else {
-	// 		console.log('poop');
-	// 		fetch(`${corsURL}https://api.yelp.com/v3/businesses/fleetwood-roller-rink-summit-argo/reviews`, {
-	// 			headers: {
-	// 				Authorization: `Bearer ${yelpKey}`
-	// 			}
-	// 		})
-	// 			.then((response) => response.json())
-	// 			.then((data) => {
-	// 				console.log(data);
-	// 			})
-	// 			.catch((error) => {
-	// 				console.log(error);
-	// 			});
-	// 	}
-	// }, []);
+	// window.addEventListener('click', (event) => {
+	// 	console.log(event.target);
+	// });
 
 	return <MapBase ref={mapElement} />;
 };
@@ -84,6 +77,14 @@ const MapBase = styled.div`
 			width: 100%;
 		}
 	}
+
+	.my-marker {
+		display: block;
+		border-radius: 50%;
+		height: 20px;
+		width: 20px;
+		background-color: cornflowerblue;
+	}
 `;
 export default MyMap;
 
@@ -100,21 +101,3 @@ export default MyMap;
 // function showName(event) {
 // 	console.log(event);
 // }
-
-// const fetchThings = async () => {
-// 	const data = await axios
-// 		.get(
-// 			`${'https://cors-anywhere.herokuapp.com/'}https://api.yelp.com/v3/businesses/fleetwood-roller-rink-summit-argo/reviews`,
-// 			{
-// 				headers: {
-// 					Authorization: `Bearer ${process.env.YELP_API_KEY}`
-// 				}
-// 			}
-// 		)
-// 		.then((res) => {
-// 			console.log(res.data);
-// 		})
-// 		.catch((error) => {
-// 			console.log(error);
-// 		});
-// };

@@ -3,7 +3,6 @@ import Plot from 'react-plotly.js';
 
 const corsURL = 'https://cors-anywhere.herokuapp.com/';
 const yelpKey = process.env.YELP_API_KEY;
-
 let i = 0;
 const covidKey = process.env.COVIDNOW_API_KEY;
 
