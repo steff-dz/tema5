@@ -126,7 +126,7 @@ const GuidePage = () => {
 			<InfoCard
 				name={venue.metafields[4].value}
 				image={venue.metafields[3].value}
-				descrip={item.content}
+				descrip={venue.content}
 				yelpID={venue.metafields[5].value}
 			/>
 		);

@@ -5,6 +5,8 @@ const InfoCard = ({ name, image, descrip, yelpID }) => {
 	return (
 		<InfoCardBase>
 			<h1>{name}</h1>
+			<img src={`https://imgix.cosmicjs.com/${image}`} />
+			<p dangerouslySetInnerHTML={{ __html: descrip }} />
 		</InfoCardBase>
 	);
 };
@@ -17,6 +19,12 @@ const InfoCardBase = styled.div`
 		font-size: 2.5rem;
 		text-align: center;
 		margin-top: .5rem;
+	}
+
+	img {
+		width: 400px;
+		margin: 0 auto;
+		display: block;
 	}
 `;
 
