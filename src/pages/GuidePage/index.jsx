@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Cosmic from 'cosmicjs';
+import TestChart from '../../components/TestChart';
 import MyMap from '../../components/MyMap';
 
 const GuidePage = () => {
@@ -52,7 +53,10 @@ const GuidePage = () => {
 	function renderPage() {
 		return (
 			<MainBase>
-				<section>Info will be posted here.</section>
+				<section>
+					Info will be posted here.
+					<TestChart />
+				</section>
 				<MyMap mapMarkersState={mapMarkersState} />
 			</MainBase>
 		);
@@ -72,4 +76,3 @@ const MainBase = styled.main`
 export default GuidePage;
 
 //<div dangerouslySetInnerHTML={{ __html: pageData.content }} />
-//<MyMap />

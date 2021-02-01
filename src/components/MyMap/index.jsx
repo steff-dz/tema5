@@ -4,12 +4,12 @@ import Mapbox from 'mapbox-gl';
 import styled from 'styled-components';
 
 let map = null;
-let yelpKey = process.env.YELP_API_KEY;
+//let yelpKey = process.env.YELP_API_KEY;
 
 const MyMap = ({ mapMarkersState }) => {
 	const mapElement = useRef();
 	Mapbox.accessToken = process.env.MAPBOX_API_KEY;
-	const corsURL = 'https://cors-anywhere.herokuapp.com/';
+	//const corsURL = 'https://cors-anywhere.herokuapp.com/';
 
 	//This useEffect is calling and creating a map
 	useEffect(() => {
@@ -47,25 +47,25 @@ const MyMap = ({ mapMarkersState }) => {
 		[ mapMarkersState ]
 	);
 
-	useEffect(() => {
-		if (map === null) {
-			return;
-		} else {
-			console.log('poop');
-			fetch(`${corsURL}https://api.yelp.com/v3/businesses/fleetwood-roller-rink-summit-argo/reviews`, {
-				headers: {
-					Authorization: `Bearer ${yelpKey}`
-				}
-			})
-				.then((response) => response.json())
-				.then((data) => {
-					console.log(data);
-				})
-				.catch((error) => {
-					console.log(error);
-				});
-		}
-	}, []);
+	// useEffect(() => {
+	// 	if (map === null) {
+	// 		return;
+	// 	} else {
+	// 		console.log('poop');
+	// 		fetch(`${corsURL}https://api.yelp.com/v3/businesses/fleetwood-roller-rink-summit-argo/reviews`, {
+	// 			headers: {
+	// 				Authorization: `Bearer ${yelpKey}`
+	// 			}
+	// 		})
+	// 			.then((response) => response.json())
+	// 			.then((data) => {
+	// 				console.log(data);
+	// 			})
+	// 			.catch((error) => {
+	// 				console.log(error);
+	// 			});
+	// 	}
+	// }, []);
 
 	return <MapBase ref={mapElement} />;
 };
