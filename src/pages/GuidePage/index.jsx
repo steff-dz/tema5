@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Cosmic from 'cosmicjs';
 import Mapbox from 'mapbox-gl';
 import InfoCard from '../../components/InfoCard';
+import Marker from '../../other/marker.png';
 //"Turning Off" the test char to focus on the info card
 //import TestChart from '../../components/TestChart';
 //import MyMap from '../../components/MyMap';
@@ -14,12 +15,11 @@ const GuidePage = () => {
 	const [ mapMarkersState, setMapMarkersState ] = useState([]);
 
 	//Extra things I will need-----------------------------------------
-	Mapbox.accessToksen = process.env.MAPBOX_API_KEY;
 	const mapElement = useRef();
+	Mapbox.accessToken = process.env.MAPBOX_API_KEY;
 
-	//Getting information I need from Cosmic JS
+	//Getting information I need from Cosmic JS----------------------------------
 	useEffect(() => {
-		//Grabbing everything I need from Cosmic----------------------
 		const client = new Cosmic();
 
 		const bucket = client.bucket({
@@ -57,7 +57,8 @@ const GuidePage = () => {
 			});
 	}, []);
 
-	//Code for the map starts here--------------------------------------------
+	//Code for the map starts here------------------------------------------------
+	//Generating the map
 	useEffect(
 		() => {
 			if (pageData !== null) {
@@ -72,6 +73,44 @@ const GuidePage = () => {
 		[ pageData ]
 	);
 
+	//Creating map markers------------------------------------------------------------
+	useEffect(
+		() => {
+			if (mapMarkersState === null) {
+				return;
+			} else {
+				mapMarkersState.map((item) => {
+					let el = document.createElement('div');
+
+					el.className = 'my-marker';
+
+					el.setAttribute('data-name', `${item.metafields[5].value}`);
+					el.style.backgroundImage =
+						'url("https://pics.freeicons.io/uploads/icons/png/4482957981557740362-512.png")';
+					el.addEventListener('click', function() {
+						console.log('hi');
+						console.log(el.getAttribute('data-name'));
+					});
+
+					let popUpCard = `
+					<div class="popup-card">
+					<h3>${item.metafields[4].value}</h3>
+					<p>${item.metafields[2].value}</p>
+					<img src="https://imgix.cosmicjs.com/${item.metafields[3].value}" alt="photo of location">
+					<p>${item.content}</p>
+					</div>
+					`;
+
+					new Mapbox.Marker(el)
+						.setLngLat([ item.metafields[0].value, item.metafields[1].value ])
+						.setPopup(new Mapbox.Popup().setHTML(popUpCard))
+						.addTo(map);
+				});
+			}
+		},
+		[ mapMarkersState ]
+	);
+
 	function renderSkeleton() {
 		return <p>Loading page...</p>;
 	}
@@ -80,7 +119,7 @@ const GuidePage = () => {
 		return (
 			<MainBase>
 				<section>
-					<InfoCard mapMarkersState={mapMarkersState} />
+					<InfoCard />
 				</section>
 				<div id="map-container" ref={mapElement} />
 			</MainBase>
@@ -101,6 +140,23 @@ const MainBase = styled.main`
 
 	#map-container {
 		height: 100%;
+
+		.my-marker {
+			display: block;
+			width: 30px;
+			height: 30px;
+			background-size: 30px 30px;
+		}
+
+		.popup-card {
+			h3 {
+				font-size: 1rem;
+			}
+
+			img {
+				width: 100%;
+			}
+		}
 	}
 `;
 

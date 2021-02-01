@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import Mapbox from 'mapbox-gl';
+//import Mapbox from 'mapbox-gl';
 import styled from 'styled-components';
 
 let map = null;
