@@ -3,9 +3,9 @@ import Plot from 'react-plotly.js';
 
 const corsURL = 'https://cors-anywhere.herokuapp.com/';
 const yelpKey = process.env.YELP_API_KEY;
-const googleKey = 'AIzaSyCH6eZG2nHMVBu8h1YAJwY4SyBfpN2V-Mc';
+
 let i = 0;
-const covidKey = '9812dd4fb9834a0aa22f24eae253effd';
+const covidKey = process.env.COVIDNOW_API_KEY;
 
 const TestChart = () => {
 	const [ reviews, setReviews ] = useState(null);
@@ -78,6 +78,3 @@ const TestChart = () => {
 };
 
 export default TestChart;
-
-//KEY FOR COVID ACT NOW API :
-// 9812dd4fb9834a0aa22f24eae253effd
