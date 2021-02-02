@@ -7,14 +7,13 @@ const yelpKey = process.env.YELP_API_KEY;
 //const covidKey = process.env.COVIDNOW_API_KEY;
 
 const TestChart = ({ yelpID }) => {
-	console.log(yelpID);
 	const [ reviews, setReviews ] = useState(null);
 	const [ chartState, setChartState ] = useState({
 		data: [],
 		layout: {
 			width: 400,
 			height: 400,
-			title: 'Yelp Reviews Graph'
+			title: 'Chart of Yelp Reviews'
 		},
 		frames: [],
 		config: {}

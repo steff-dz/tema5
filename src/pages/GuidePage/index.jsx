@@ -135,9 +135,12 @@ const GuidePage = () => {
 	function renderPage() {
 		return (
 			<MainBase>
-				<section>
+				<section id="guide-container">
 					<div id="card-container">{venue === null ? defaultCard() : renderInfoCard()}</div>
 					<div id="map-container" ref={mapElement} />
+				</section>
+				<section id="corona-container">
+					<h2>Corona Graphs Will Be Going Here</h2>
 				</section>
 			</MainBase>
 		);
@@ -151,8 +154,10 @@ const MainBase = styled.main`
 	width: 100vw;
 	border: 1px solid black;
 	background-color: #030303;
+	overflow: scroll;
+	overflow-x: hidden;
 
-	section {
+	#guide-container {
 		margin-top: 6%;
 		margin-left: auto;
 		margin-right: auto;
@@ -188,6 +193,19 @@ const MainBase = styled.main`
 			img {
 				width: 100%;
 			}
+		}
+	}
+
+	#corona-container {
+		margin-top: 3%;
+		margin-left: auto;
+		margin-right: auto;
+		border: 1px solid white;
+		height: 50vh;
+		width: 90vw;
+		h2 {
+			color: white;
+			text-align: center;
 		}
 	}
 `;
