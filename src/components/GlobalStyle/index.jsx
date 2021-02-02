@@ -17,7 +17,7 @@ html {
 }
 
 body {
-    font-family: sans-serif;
+    font-family: 'Lato', sans-serif;
 }
 
 `;

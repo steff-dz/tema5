@@ -135,8 +135,10 @@ const GuidePage = () => {
 	function renderPage() {
 		return (
 			<MainBase>
-				<section>{venue === null ? defaultCard() : renderInfoCard()}</section>
-				<div id="map-container" ref={mapElement} />
+				<section>
+					<div id="card-container">{venue === null ? defaultCard() : renderInfoCard()}</div>
+					<div id="map-container" ref={mapElement} />
+				</section>
 			</MainBase>
 		);
 	}
@@ -145,13 +147,28 @@ const GuidePage = () => {
 };
 
 const MainBase = styled.main`
-	margin: 0 auto;
 	height: 100vh;
-	width: 98vw;
+	width: 100vw;
 	border: 1px solid black;
-	margin-top: 6%;
-	display: grid;
-	grid-template-columns: 1fr 1fr;
+	background-color: #030303;
+
+	section {
+		margin-top: 6%;
+		margin-left: auto;
+		margin-right: auto;
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 2rem;
+		width: 90vw;
+		height: 80vh;
+	}
+
+	#card-container {
+		overflow: scroll;
+		overflow-x: hidden;
+		border-radius: 10px;
+		background-color: black;
+	}
 
 	#map-container {
 		height: 100%;

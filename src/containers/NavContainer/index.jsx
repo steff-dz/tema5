@@ -55,6 +55,7 @@ const NavBase = styled.nav`
 	border-radius: 0 15px 15px 0;
 	opacity: .8;
 	top: 0;
+	width: fit-content;
 
 	ul {
 		display: flex;

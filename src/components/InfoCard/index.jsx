@@ -14,6 +14,7 @@ const InfoCard = ({ name, image, descrip, yelpID }) => {
 const InfoCardBase = styled.div`
 	border: 3px solid black;
 	height: 100%;
+	color: white;
 
 	h1 {
 		font-size: 2.5rem;
@@ -25,6 +26,12 @@ const InfoCardBase = styled.div`
 		width: 400px;
 		margin: 0 auto;
 		display: block;
+	}
+
+	p {
+		padding: 1rem 2rem;
+		font-size: 1.7rem;
+		line-height: 2.3rem;
 	}
 `;
 
