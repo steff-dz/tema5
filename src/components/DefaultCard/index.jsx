@@ -33,7 +33,7 @@ const DefaultCardBase = styled.div`
 
 	p {
 		padding: 1rem 2rem;
-		font-size: 1.7rem;
+		font-size: 1.5rem;
 		line-height: 2.3rem;
 	}
 `;

@@ -1,12 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
+import TestChart from '../TestChart';
 
 const InfoCard = ({ name, image, descrip, yelpID }) => {
+	console.log(yelpID);
 	return (
 		<InfoCardBase>
 			<h1>{name}</h1>
 			<img src={`https://imgix.cosmicjs.com/${image}`} />
 			<p dangerouslySetInnerHTML={{ __html: descrip }} />
+			<TestChart yelpID={yelpID} />
 		</InfoCardBase>
 	);
 };
@@ -30,7 +33,7 @@ const InfoCardBase = styled.div`
 
 	p {
 		padding: 1rem 2rem;
-		font-size: 1.7rem;
+		font-size: 1.5rem;
 		line-height: 2.3rem;
 	}
 `;
