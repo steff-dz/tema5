@@ -26,7 +26,7 @@ const TestChart = ({ yelpID }) => {
 			};
 
 			//BELOW IS THE YELP FETCH
-			fetch(`${corsURL}https://api.yelp.com/v3/businesses/${yelpID}/reviews`, {
+			fetch(`https://api.yelp.com/v3/businesses/${yelpID}/reviews`, {
 				headers: {
 					Authorization: `Bearer ${yelpKey}`
 				}
