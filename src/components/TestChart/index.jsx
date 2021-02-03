@@ -5,7 +5,6 @@ const corsURL = 'https://cors-anywhere.herokuapp.com/';
 const yelpKey = process.env.YELP_API_KEY;
 
 const TestChart = ({ yelpID }) => {
-	const [ reviews, setReviews ] = useState(null);
 	const [ chartState, setChartState ] = useState({
 		data: [],
 		layout: {
