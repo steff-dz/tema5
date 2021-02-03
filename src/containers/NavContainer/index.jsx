@@ -77,11 +77,3 @@ const NavBase = styled.nav`
 `;
 
 export default NavContainer;
-
-/* <NavBase>
-<ul>
-    {navData.objects.map((item) => {
-        return <li>{item.title}</li>;
-    })}
-</ul>
-</NavBase> */

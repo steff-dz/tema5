@@ -3,19 +3,6 @@ import styled from 'styled-components';
 import TestChart from '../TestChart';
 
 const InfoCard = ({ name, image, descrip, yelpID }) => {
-	//the number 17043 is the code for the county, should be a variable that changes based off of the venue.
-	const covidKey = process.env.COVIDNOW_API_KEY;
-	function covidInfo() {
-		fetch(`https://api.covidactnow.org/v2/county/17043.timeseries.json?apiKey=${covidKey}`)
-			.then((response) => response.json())
-			.then((data) => {
-				console.log(data);
-			})
-			.catch((error) => {
-				console.log(error);
-			});
-	}
-
 	return (
 		<InfoCardBase>
 			<h1>{name}</h1>
@@ -24,7 +11,6 @@ const InfoCard = ({ name, image, descrip, yelpID }) => {
 			<div>
 				<TestChart yelpID={yelpID} />
 			</div>
-			<button onClick={() => covidInfo()}>Show Corona Info</button>
 		</InfoCardBase>
 	);
 };

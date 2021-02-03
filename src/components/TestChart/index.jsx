@@ -3,8 +3,6 @@ import Plot from 'react-plotly.js';
 
 const corsURL = 'https://cors-anywhere.herokuapp.com/';
 const yelpKey = process.env.YELP_API_KEY;
-//let i = 0;
-//const covidKey = process.env.COVIDNOW_API_KEY;
 
 const TestChart = ({ yelpID }) => {
 	const [ reviews, setReviews ] = useState(null);
@@ -13,7 +11,7 @@ const TestChart = ({ yelpID }) => {
 		layout: {
 			width: 400,
 			height: 400,
-			title: 'Chart of Yelp Reviews'
+			title: 'Latest 3 Yelp Reviews'
 		},
 		frames: [],
 		config: {}
@@ -52,18 +50,6 @@ const TestChart = ({ yelpID }) => {
 		[ yelpID ]
 	);
 
-	//the number 17043 is the code for the county, should be a variable that changes based off of the venue.
-	// function covidInfo() {
-	// 	fetch(`https://api.covidactnow.org/v2/county/17043.timeseries.json?apiKey=${covidKey}`)
-	// 		.then((response) => response.json())
-	// 		.then((data) => {
-	// 			console.log(data);
-	// 		})
-	// 		.catch((error) => {
-	// 			console.log(error);
-	// 		});
-	// }
-
 	return (
 		<React.Fragment>
 			<Plot
@@ -79,5 +65,3 @@ const TestChart = ({ yelpID }) => {
 };
 
 export default TestChart;
-
-//<button onClick={() => covidInfo()}>Covid Act Now API</button>

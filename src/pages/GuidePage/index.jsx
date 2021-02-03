@@ -4,9 +4,7 @@ import Cosmic from 'cosmicjs';
 import Mapbox from 'mapbox-gl';
 import DefaultCard from '../../components/DefaultCard';
 import InfoCard from '../../components/InfoCard';
-import Marker from '../../other/marker.png';
-//"Turning Off" the test char to focus on the info card
-//import TestChart from '../../components/TestChart';
+
 let map = null;
 
 const GuidePage = () => {
@@ -45,7 +43,7 @@ const GuidePage = () => {
 			read_key: process.env.READ_KEY
 		});
 
-		bucket
+		bucket2
 			.getObjects({
 				type: 'mapmarkers',
 				props: 'title,slug,content,metafields'
