@@ -329,6 +329,14 @@ const MainBase = styled.main`
 			font-weight: normal;
 		}
 
+		button {
+			margin: 2% 0;
+			font-size: 1.8rem;
+			padding: .5rem;
+			border-radius: 10px;
+			cursor: pointer;
+		}
+
 		article {
 			color: white;
 		}
@@ -336,10 +344,3 @@ const MainBase = styled.main`
 `;
 
 export default GuidePage;
-
-//<div dangerouslySetInnerHTML={{ __html: pageData.content }} />
-
-//turning off the test chart to focus on the info card.
-//	<TestChart />
-// insert the TestChart above MyMap component, possibly change the name of Testchart too.
-//	<MyMap mapMarkersState={mapMarkersState} />

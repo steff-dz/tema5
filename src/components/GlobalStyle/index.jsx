@@ -5,6 +5,21 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    scrollbar-width: thin;
+}
+
+*::-webkit-scrollbar{
+    width: 5px;
+}
+
+/* *::-webkit-scrollbar-track{
+    background: transparent;
+} */
+
+*::-webkit-scrollbar-thumb{
+    background-color: #9c9a9a;
+    border-radius: 20px;
+    border: transparent;
 }
 
 html, body {
