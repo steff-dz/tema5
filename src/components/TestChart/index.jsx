@@ -2,47 +2,40 @@ import React, { useState, useEffect } from 'react';
 import Plot from 'react-plotly.js';
 
 const TestChart = ({ chartData }) => {
-	console.log(chartData);
+	console.log('hi');
 	const [ chartState, setChartState ] = useState({
 		data: [],
 		layout: {
-			width: 400,
+			width: 800,
 			height: 400,
-			title: 'Chart'
+			title: 'Total Covid Cases in the past 10 Days'
 		},
 		frames: [],
 		config: {}
 	});
 
-	useEffect(() => {
-		let newChartData = {
-			type: 'bar',
-			x: [],
-			y: []
-		};
+	useEffect(
+		() => {
+			let newChartData = {
+				type: 'scatter',
+				x: [],
+				y: []
+			};
 
-		//BELOW IS THE YELP FETCH
-		// fetch(`https://api.yelp.com/v3/businesses/${yelpID}/reviews`, {
-		// 	headers: {
-		// 		Authorization: `Bearer ${yelpKey}`
-		// 	}
-		// })
-		// 	.then((response) => response.json())
-		// 	.then((data) => {
-		// 		data.reviews.forEach((el) => {
-		// 			newChartData.y.push(el.rating);
-		// 			newChartData.x.push(el.time_created.slice(0, 10));
-		// 		});
-		// 		let newChartState = {
-		// 			...chartState,
-		// 			data: [ newChartData ]
-		// 		};
-		// 		setChartState(newChartState);
-		// 	})
-		// 	.catch((error) => {
-		// 		console.log(error);
-		// 	});
-	}, []);
+			chartData.forEach((el) => {
+				newChartData.x.push(el.date);
+				newChartData.y.push(el.cases);
+			});
+
+			let newChartState = {
+				...chartState,
+				data: [ newChartData ]
+			};
+
+			setChartState(newChartState);
+		},
+		[ chartData ]
+	);
 
 	return (
 		<React.Fragment>
