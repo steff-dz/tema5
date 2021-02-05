@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Plot from 'react-plotly.js';
 
-const TestChart = ({ chartData }) => {
+const TestChart = ({ chartData, displayMode }) => {
+	console.log(displayMode);
 	const [ chartState, setChartState ] = useState({
 		data: [],
 		layout: {

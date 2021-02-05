@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useLayoutEffect } from 'react';
 import Cosmic from 'cosmicjs';
 import styled from 'styled-components';
-import NavItem from '../../components/NavItem';
+import NavItem from '../NavItem';
 import { NavLink } from 'react-router-dom';
 
 const NavContainer = () => {
@@ -32,7 +32,11 @@ const NavContainer = () => {
 		window.addEventListener(
 			'scroll',
 			() => {
-				console.log('stuff');
+				if (window.scrollY > 80) {
+					navElement.current.style.opacity = '1';
+				} else {
+					navElement.current.style.opacity = '0.8';
+				}
 			},
 			true
 		);

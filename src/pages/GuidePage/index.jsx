@@ -84,7 +84,10 @@ const GuidePage = () => {
 	const [ mapMarkersState, setMapMarkersState ] = useState([]);
 	const [ venue, setVenue ] = useState(null);
 	const [ recentCovidCases, setRecentCovidCases ] = useState(null);
-	const [ graphDisplay, setGraphDisplay ] = useState(false);
+	const [ casesDisplay, setCasesDisplay ] = useState(false);
+	const [ newCasesDisplay, setNewCasesDisplay ] = useState(false);
+	const [ deathsDisplay, setDeathsDisplay ] = useState(false);
+	const [ displayMode, setDisplayMode ] = useState('');
 
 	//Extra things I will need-----------------------------------------
 	const mapElement = useRef();
@@ -170,7 +173,6 @@ const GuidePage = () => {
 						'url("https://pics.freeicons.io/uploads/icons/png/4482957981557740362-512.png")';
 
 					el.addEventListener('click', function() {
-						//console.log(el.getAttribute('data-name'));
 						let selectedVenue = el.getAttribute('data-name');
 						let venueToPass = mapMarkersState.find((el) => el.title === selectedVenue);
 						setVenue(venueToPass);
@@ -180,7 +182,7 @@ const GuidePage = () => {
 					<div class="popup-card">
 					<h3>${item.metafields[4].value}</h3>
 					<p>${item.metafields[2].value}</p>
-				
+
 					</div>
 					`;
 
@@ -203,6 +205,7 @@ const GuidePage = () => {
 				const recentCovidData = data.actualsTimeseries;
 				for (let i = 0; i < 11; i++) {
 					let movingData = recentCovidData.pop();
+					//console.log(movingData.date);
 					covidData.push(movingData);
 				}
 
@@ -239,9 +242,19 @@ const GuidePage = () => {
 
 				<section id="corona-container">
 					<i className="fas fa-chevron-down" />
-					<h2>Recent Covid Stats for Cook County</h2>
-					<button onClick={() => setGraphDisplay(!graphDisplay)}>Show Me</button>
-					<article>{graphDisplay ? <TestChart chartData={recentCovidCases} /> : ''}</article>
+					<h2>Recent Covid Stats in Cook County</h2>
+					<h3>
+						<i>for the past 10 days</i>
+					</h3>
+					<div id="button-container">
+						<button onClick={() => setDisplayMode('New Cases')}>New Cases</button>
+						<button onClick={() => setDisplayMode('Cases')}>Total Cases</button>
+						<button onClick={() => setDisplayMode('Deaths')}>Deaths</button>
+					</div>
+
+					<article>
+						{displayMode !== '' ? <TestChart chartData={recentCovidCases} displayMode={displayMode} /> : ''}
+					</article>
 				</section>
 			</MainBase>
 		);
@@ -251,12 +264,13 @@ const GuidePage = () => {
 };
 
 const MainBase = styled.main`
-	height: 100vh;
-	width: 100vw;
+	/* height: 100vh;
+	width: 100vw; */
 	border: 1px solid black;
 	background-color: #030303;
 	overflow: scroll;
-	overflow-x: hidden;
+
+	/* overflow-x: hidden; */
 
 	#guide-container {
 		margin-top: 6%;
@@ -274,7 +288,7 @@ const MainBase = styled.main`
 		overflow-x: hidden;
 		border-radius: 10px;
 		background-color: black;
-		border: 1px solid grey;
+		border: 2px solid grey;
 	}
 
 	#map-container {
@@ -303,12 +317,12 @@ const MainBase = styled.main`
 		margin-top: 2%;
 		margin-left: auto;
 		margin-right: auto;
-
 		height: 50vh;
 		width: 90vw;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
+		/* border: 1px solid blue; */
 
 		.fa-chevron-down {
 			color: white;
@@ -326,15 +340,28 @@ const MainBase = styled.main`
 			font-weight: normal;
 		}
 
-		button {
-			margin: 2% 0;
-			font-size: 1.8rem;
-			padding: .5rem;
-			border-radius: 10px;
-			cursor: pointer;
+		h3 {
 			color: white;
-			background-color: black;
-			border: 1px solid white;
+			font-weight: normal;
+			font-size: 1.5rem;
+		}
+
+		#button-container {
+			margin-top: .5rem;
+			display: flex;
+			gap: 2rem;
+			width: 100%;
+			justify-content: center;
+
+			button {
+				margin: 2% 0;
+				font-size: 1.8rem;
+				padding: .8rem;
+				cursor: pointer;
+				color: white;
+				background-color: black;
+				border: 1px solid white;
+			}
 		}
 
 		article {

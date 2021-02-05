@@ -1,7 +1,7 @@
 import React from 'react';
 import GlobalStyle from './components/GlobalStyle';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import NavContainer from './containers/NavContainer';
+import NavContainer from './components/NavContainer';
 import LandingPage from './pages/LandingPage';
 import GuidePage from './pages/GuidePage';
 import InfoPage from './pages/InfoPage';
