@@ -84,9 +84,6 @@ const GuidePage = () => {
 	const [ mapMarkersState, setMapMarkersState ] = useState([]);
 	const [ venue, setVenue ] = useState(null);
 	const [ recentCovidCases, setRecentCovidCases ] = useState(null);
-	const [ casesDisplay, setCasesDisplay ] = useState(false);
-	const [ newCasesDisplay, setNewCasesDisplay ] = useState(false);
-	const [ deathsDisplay, setDeathsDisplay ] = useState(false);
 	const [ displayMode, setDisplayMode ] = useState('');
 
 	//Extra things I will need-----------------------------------------
@@ -205,7 +202,6 @@ const GuidePage = () => {
 				const recentCovidData = data.actualsTimeseries;
 				for (let i = 0; i < 11; i++) {
 					let movingData = recentCovidData.pop();
-					//console.log(movingData.date);
 					covidData.push(movingData);
 				}
 
@@ -247,9 +243,22 @@ const GuidePage = () => {
 						<i>for the past 10 days</i>
 					</h3>
 					<div id="button-container">
-						<button onClick={() => setDisplayMode('New Cases')}>New Cases</button>
-						<button onClick={() => setDisplayMode('Cases')}>Total Cases</button>
-						<button onClick={() => setDisplayMode('Deaths')}>Deaths</button>
+						<button
+							onClick={() =>
+								displayMode !== 'New Cases' ? setDisplayMode('New Cases') : setDisplayMode('')}
+						>
+							New Cases
+						</button>
+						<button
+							onClick={() => (displayMode !== 'Cases' ? setDisplayMode('Cases') : setDisplayMode(''))}
+						>
+							Total Cases
+						</button>
+						<button
+							onClick={() => (displayMode !== 'Deaths' ? setDisplayMode('Deaths') : setDisplayMode(''))}
+						>
+							Deaths
+						</button>
 					</div>
 
 					<article>
@@ -371,3 +380,5 @@ const MainBase = styled.main`
 `;
 
 export default GuidePage;
+
+//<button onClick={() => setDisplayMode('Cases')}>Total Cases</button>

@@ -2,13 +2,12 @@ import React, { useState, useEffect } from 'react';
 import Plot from 'react-plotly.js';
 
 const TestChart = ({ chartData, displayMode }) => {
-	console.log(displayMode);
 	const [ chartState, setChartState ] = useState({
 		data: [],
 		layout: {
 			width: 800,
 			height: 400,
-			title: 'Total Covid Cases in the past 10 Days'
+			title: ''
 		},
 		frames: [],
 		config: {}
@@ -22,19 +21,37 @@ const TestChart = ({ chartData, displayMode }) => {
 				y: []
 			};
 
-			chartData.forEach((el) => {
+			chartData.filter((el) => {
 				newChartData.x.push(el.date);
-				newChartData.y.push(el.cases);
 			});
+
+			if (displayMode === 'Cases') {
+				chartData.forEach((el) => {
+					newChartData.y.push(el.cases);
+				});
+			} else if (displayMode === 'New Cases') {
+				chartData.forEach((el) => {
+					newChartData.y.push(el.newCases);
+				});
+			} else if (displayMode === 'Deaths') {
+				chartData.forEach((el) => {
+					newChartData.y.push(el.deaths);
+				});
+			} else {
+				console.log('its not working!');
+			}
 
 			let newChartState = {
 				...chartState,
-				data: [ newChartData ]
+				data: [ newChartData ],
+				layout: {
+					title: `Total ${displayMode}`
+				}
 			};
 
 			setChartState(newChartState);
 		},
-		[ chartData ]
+		[ chartData, displayMode ]
 	);
 
 	return (
