@@ -1,12 +1,11 @@
 import styled from 'styled-components';
 
 const CardBase = styled.div`
-	height: 100%;
 	color: white;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	padding: 0 4rem;
+	padding: 0 3rem;
 
 	h1 {
 		font-size: 2.5rem;

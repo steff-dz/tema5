@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Cosmic from 'cosmicjs';
 import styled from 'styled-components';
 import NavItem from '../../components/NavItem';
+import { NavLink } from 'react-router-dom';
 
 const NavContainer = () => {
+	const navElement = useRef();
 	const [ navData, setNavData ] = useState(null);
 
 	useEffect(() => {
@@ -26,14 +28,27 @@ const NavContainer = () => {
 			});
 	}, []);
 
+	useEffect(() => {
+		window.addEventListener(
+			'scroll',
+			() => {
+				console.log('stuff');
+			},
+			true
+		);
+	}, []);
+
 	function renderSkel() {
 		return <p>Loading...</p>;
 	}
 
 	function renderNav() {
 		return (
-			<NavBase>
+			<NavBase ref={navElement}>
 				<ul>
+					<NavLink className="nav-item" to="/">
+						Home
+					</NavLink>
 					{navData.objects.map((item) => {
 						return <NavItem key={item.slug} title={item.title} url={`/${item.slug}`} />;
 					})}

@@ -111,12 +111,7 @@ const GuidePage = () => {
 				console.log(error);
 			});
 
-		const bucket2 = client.bucket({
-			slug: process.env.BUCKET_SLUG,
-			read_key: process.env.READ_KEY
-		});
-
-		bucket2
+		bucket
 			.getObjects({
 				type: 'mapmarkers',
 				props: 'title,slug,content,metafields'
@@ -269,8 +264,8 @@ const MainBase = styled.main`
 		margin-right: auto;
 		display: grid;
 		grid-template-columns: 1fr 1fr;
-		gap: 2rem;
-		width: 90vw;
+		gap: 3rem;
+		width: 80vw;
 		height: 75vh;
 	}
 
@@ -279,10 +274,12 @@ const MainBase = styled.main`
 		overflow-x: hidden;
 		border-radius: 10px;
 		background-color: black;
+		border: 1px solid grey;
 	}
 
 	#map-container {
 		height: 100%;
+		border-radius: 10px;
 
 		.my-marker {
 			display: block;
@@ -335,6 +332,9 @@ const MainBase = styled.main`
 			padding: .5rem;
 			border-radius: 10px;
 			cursor: pointer;
+			color: white;
+			background-color: black;
+			border: 1px solid white;
 		}
 
 		article {

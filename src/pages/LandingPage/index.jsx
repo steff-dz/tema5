@@ -53,14 +53,14 @@ const MainBase = styled.main`
 		}
 
 		h1 {
-			left: 10%;
+			left: 18%;
 			bottom: 35%;
-			font-size: 4rem;
+			font-size: 4.2rem;
 		}
 
 		h2 {
-			right: 20%;
-			font-size: 9rem;
+			right: 30%;
+			font-size: 9.2rem;
 			width: fit-content;
 			bottom: 10%;
 		}
