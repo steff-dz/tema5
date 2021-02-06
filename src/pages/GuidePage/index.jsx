@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import Cosmic from 'cosmicjs';
-import Mapbox from 'mapbox-gl';
+import Mapbox, { Popup } from 'mapbox-gl';
 import DefaultCard from '../../components/DefaultCard';
 import InfoCard from '../../components/InfoCard';
 import TestChart from '../../components/TestChart';
@@ -150,6 +150,11 @@ const GuidePage = () => {
 						}
 					});
 				});
+				// .on('mouseenter', 'cook-county', function(e) {
+				// 	console.log('you are in cook county');
+				// 	map.getCanvas().style.cursor = 'pointer';
+				// 	console.log(e);
+				// });
 			}
 		},
 		[ pageData ]
@@ -173,6 +178,20 @@ const GuidePage = () => {
 						let selectedVenue = el.getAttribute('data-name');
 						let venueToPass = mapMarkersState.find((el) => el.title === selectedVenue);
 						setVenue(venueToPass);
+					});
+					el.addEventListener('mouseenter', function() {
+						console.log('you are hovering');
+						let popup = new Mapbox.Popup({
+							closeButton: false,
+							closeOnClick: false
+						})
+							.setLngLat([ item.metafields[0].value, item.metafields[1].value ])
+							.setHTML(`<h3>${item.metafields[4].value}</h3>`)
+							.addTo(map);
+
+						el.addEventListener('mouseleave', function() {
+							popup.remove();
+						});
 					});
 
 					let popUpCard = `
@@ -311,13 +330,16 @@ const MainBase = styled.main`
 			background-size: 30px 30px;
 		}
 
+		.mapboxgl-popup-content {
+			button {
+				font-size: 1.5rem;
+				padding: 0 0.3rem;
+			}
+		}
+
 		.popup-card {
 			h3 {
 				font-size: 1rem;
-			}
-
-			img {
-				width: 100%;
 			}
 		}
 	}
@@ -370,6 +392,10 @@ const MainBase = styled.main`
 				color: white;
 				background-color: black;
 				border: 1px solid white;
+
+				&:hover {
+					opacity: 0.5;
+				}
 			}
 		}
 
