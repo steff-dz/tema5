@@ -4,7 +4,7 @@ import Cosmic from 'cosmicjs';
 import Mapbox, { Popup } from 'mapbox-gl';
 import DefaultCard from '../../components/DefaultCard';
 import InfoCard from '../../components/InfoCard';
-import TestChart from '../../components/TestChart';
+import CovidChart from '../../components/CovidChart';
 
 let map = null;
 const covidKey = process.env.COVIDNOW_API_KEY;
@@ -150,11 +150,6 @@ const GuidePage = () => {
 						}
 					});
 				});
-				// .on('mouseenter', 'cook-county', function(e) {
-				// 	console.log('you are in cook county');
-				// 	map.getCanvas().style.cursor = 'pointer';
-				// 	console.log(e);
-				// });
 			}
 		},
 		[ pageData ]
@@ -281,7 +276,11 @@ const GuidePage = () => {
 					</div>
 
 					<article>
-						{displayMode !== '' ? <TestChart chartData={recentCovidCases} displayMode={displayMode} /> : ''}
+						{displayMode !== '' ? (
+							<CovidChart chartData={recentCovidCases} displayMode={displayMode} />
+						) : (
+							''
+						)}
 					</article>
 				</section>
 			</MainBase>
@@ -294,7 +293,7 @@ const GuidePage = () => {
 const MainBase = styled.main`
 	/* height: 100vh;
 	width: 100vw; */
-	border: 1px solid black;
+
 	background-color: #030303;
 	overflow: scroll;
 

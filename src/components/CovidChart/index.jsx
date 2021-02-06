@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Plot from 'react-plotly.js';
 
-const TestChart = ({ chartData, displayMode }) => {
+const CovidChart = ({ chartData, displayMode }) => {
 	const [ chartState, setChartState ] = useState({
 		data: [],
 		layout: {
@@ -68,4 +68,4 @@ const TestChart = ({ chartData, displayMode }) => {
 	);
 };
 
-export default TestChart;
+export default CovidChart;
