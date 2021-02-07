@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
+import Skeleton from '../../components/Skeleton';
 import Cosmic from 'cosmicjs';
 import Mapbox, { Popup } from 'mapbox-gl';
 import DefaultCard from '../../components/DefaultCard';
@@ -287,7 +288,11 @@ const GuidePage = () => {
 		);
 	}
 
-	return <React.Fragment>{pageData === null ? renderSkeleton() : renderPage()}</React.Fragment>;
+	return (
+		<React.Fragment>
+			{pageData === null ? <Skeleton style={{ backgroundColor: `#222121` }} /> : renderPage()}
+		</React.Fragment>
+	);
 };
 
 const MainBase = styled.main`

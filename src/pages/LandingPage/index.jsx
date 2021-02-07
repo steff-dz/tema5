@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 //import NavContainer from '../../containers/NavContainer';
 import Cosmic from 'cosmicjs';
 import styled from 'styled-components';
+import Skeleton from '../../components/Skeleton';
 
 const LandingPage = () => {
 	const [ pageData, setPageData ] = useState(null);
@@ -26,9 +27,9 @@ const LandingPage = () => {
 			});
 	}, []);
 
-	function renderSkeleton() {
-		return <p>Loading page....</p>;
-	}
+	// function renderSkeleton() {
+	// 	return <p>Loading page....</p>;
+	// }
 
 	function renderPage() {
 		return (
@@ -38,7 +39,7 @@ const LandingPage = () => {
 		);
 	}
 
-	return <React.Fragment>{pageData === null ? renderSkeleton() : renderPage()}</React.Fragment>;
+	return <React.Fragment>{pageData === null ? <Skeleton /> : renderPage()}</React.Fragment>;
 };
 const MainBase = styled.main`
 	height: 100vh;

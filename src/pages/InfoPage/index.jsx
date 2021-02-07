@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Cosmic from 'cosmicjs';
+import Skeleton from '../../components/Skeleton';
 
 const InfoPage = () => {
 	const [ pageData, setPageData ] = useState(null);
@@ -28,7 +29,7 @@ const InfoPage = () => {
 			});
 	}, []);
 
-	return <p>Info will go here</p>;
+	return <Skeleton />;
 };
 
 export default InfoPage;

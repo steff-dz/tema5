@@ -42,10 +42,6 @@ const NavContainer = () => {
 		);
 	}, []);
 
-	function renderSkel() {
-		return <p>Loading...</p>;
-	}
-
 	function renderNav() {
 		return (
 			<NavBase ref={navElement}>
@@ -61,11 +57,10 @@ const NavContainer = () => {
 		);
 	}
 
-	return <React.Fragment>{navData === null ? renderSkel() : renderNav()}</React.Fragment>;
+	return <React.Fragment>{navData && renderNav()}</React.Fragment>;
 };
 
 const NavBase = styled.nav`
-	/* position: absolute; */
 	position: fixed;
 	z-index: 100;
 	margin-top: .5rem;
