@@ -27,6 +27,14 @@ const CardBase = styled.div`
 	div {
 		padding-bottom: 2rem;
 	}
+
+	@media only screen and (max-width: 1200px) {
+		padding: 0 .5rem;
+
+		img {
+			width: 300px;
+		}
+	}
 `;
 
 export default CardBase;

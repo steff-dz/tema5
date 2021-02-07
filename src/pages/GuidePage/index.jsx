@@ -231,10 +231,6 @@ const GuidePage = () => {
 			});
 	}, []);
 
-	function renderSkeleton() {
-		return <p>Loading page...</p>;
-	}
-
 	function defaultCard() {
 		return <DefaultCard defaultText={pageData.content} />;
 	}
@@ -288,24 +284,15 @@ const GuidePage = () => {
 		);
 	}
 
-	return (
-		<React.Fragment>
-			{pageData === null ? <Skeleton style={{ backgroundColor: `#222121` }} /> : renderPage()}
-		</React.Fragment>
-	);
+	return <React.Fragment>{pageData === null ? <Skeleton /> : renderPage()}</React.Fragment>;
 };
 
 const MainBase = styled.main`
-	/* height: 100vh;
-	width: 100vw; */
-
 	background-color: #030303;
 	overflow: scroll;
 
-	/* overflow-x: hidden; */
-
 	#guide-container {
-		margin-top: 6%;
+		margin-top: 100px;
 		margin-left: auto;
 		margin-right: auto;
 		display: grid;
@@ -313,37 +300,37 @@ const MainBase = styled.main`
 		gap: 3rem;
 		width: 80vw;
 		height: 75vh;
-	}
 
-	#card-container {
-		overflow: scroll;
-		overflow-x: hidden;
-		border-radius: 10px;
-		background-color: black;
-		border: 2px solid grey;
-	}
-
-	#map-container {
-		height: 100%;
-		border-radius: 10px;
-
-		.my-marker {
-			display: block;
-			width: 30px;
-			height: 30px;
-			background-size: 30px 30px;
+		#card-container {
+			overflow: scroll;
+			overflow-x: hidden;
+			border-radius: 10px;
+			background-color: black;
+			border: 2px solid grey;
 		}
 
-		.mapboxgl-popup-content {
-			button {
-				font-size: 1.5rem;
-				padding: 0 0.3rem;
+		#map-container {
+			height: 100%;
+			border-radius: 10px;
+
+			.my-marker {
+				display: block;
+				width: 30px;
+				height: 30px;
+				background-size: 30px 30px;
 			}
-		}
 
-		.popup-card {
-			h3 {
-				font-size: 1rem;
+			.mapboxgl-popup-content {
+				button {
+					font-size: 1.5rem;
+					padding: 0 0.3rem;
+				}
+			}
+
+			.popup-card {
+				h3 {
+					font-size: 1rem;
+				}
 			}
 		}
 	}
@@ -357,7 +344,6 @@ const MainBase = styled.main`
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		/* border: 1px solid blue; */
 
 		.fa-chevron-down {
 			color: white;
@@ -407,8 +393,25 @@ const MainBase = styled.main`
 			color: white;
 		}
 	}
+
+	@media only screen and (max-width: 1000px) {
+		#guide-container {
+			display: flex;
+			flex-direction: column;
+
+			height: fit-content;
+
+			#card-container {
+				height: 50vh;
+			}
+
+			#map-container {
+				height: 50vh;
+			}
+		}
+	}
 `;
 
 export default GuidePage;
 
-//<button onClick={() => setDisplayMode('Cases')}>Total Cases</button>
+//@media only screen and (max-width: 1024px){}
