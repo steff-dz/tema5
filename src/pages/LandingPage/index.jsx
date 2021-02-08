@@ -34,7 +34,7 @@ const LandingPage = () => {
 		);
 	}
 
-	return <React.Fragment>{pageData === null ? <HomeSkeleton /> : renderPage()}</React.Fragment>;
+	return <React.Fragment>{pageData === null ? <HomeSkeleton pageColor={'#01214a'} /> : renderPage()}</React.Fragment>;
 };
 const MainBase = styled.main`
 	height: 100vh;

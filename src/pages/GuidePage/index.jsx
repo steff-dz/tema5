@@ -9,7 +9,6 @@ import CovidChart from '../../components/CovidChart';
 
 let map = null;
 const covidKey = process.env.COVIDNOW_API_KEY;
-const pageType = 'guide';
 
 export const geoJson = {
 	type: 'FeatureCollection',
@@ -172,10 +171,17 @@ const GuidePage = () => {
 						'url("https://pics.freeicons.io/uploads/icons/png/4482957981557740362-512.png")';
 
 					el.addEventListener('click', function() {
+						map.flyTo({
+							center: [ item.metafields[0].value, item.metafields[1].value ],
+							essential: true,
+							zoom: 13
+						});
+
 						let selectedVenue = el.getAttribute('data-name');
 						let venueToPass = mapMarkersState.find((el) => el.title === selectedVenue);
 						setVenue(venueToPass);
 					});
+
 					el.addEventListener('mouseenter', function() {
 						let popup = new Mapbox.Popup({
 							closeButton: false,
@@ -284,7 +290,7 @@ const GuidePage = () => {
 		);
 	}
 
-	return <React.Fragment>{pageData === null ? <HomeSkeleton pageType={pageType} /> : renderPage()}</React.Fragment>;
+	return <React.Fragment>{pageData === null ? <HomeSkeleton pageColor={'#030303'} /> : renderPage()}</React.Fragment>;
 };
 
 const MainBase = styled.main`
@@ -413,3 +419,5 @@ const MainBase = styled.main`
 `;
 
 export default GuidePage;
+
+//return <React.Fragment>{pageData === null ? <HomeSkeleton pageType={pageType} /> : renderPage()}</React.Fragment>

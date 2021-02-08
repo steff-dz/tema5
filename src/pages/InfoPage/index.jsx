@@ -87,7 +87,7 @@ const InfoPage = () => {
 		);
 	}
 
-	return <HomeSkeleton />;
+	return <HomeSkeleton pageColor={'#01214a'} />;
 };
 
 export default InfoPage;
