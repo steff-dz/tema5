@@ -150,6 +150,7 @@ const GuidePage = () => {
 							'fill-opacity': 0.2
 						}
 					});
+					map.addControl(new Mapbox.NavigationControl());
 				});
 			}
 		},
@@ -341,6 +342,18 @@ const MainBase = styled.main`
 		}
 	}
 
+	#zoomBtn {
+		position: absolute;
+		top: 100px;
+		right: 175px;
+		padding: .5rem;
+		background-color: white;
+		font-weight: 600;
+
+		&:hover {
+			opacity: .8;
+		}
+	}
 	#corona-container {
 		margin-top: 2%;
 		margin-left: auto;
@@ -419,5 +432,3 @@ const MainBase = styled.main`
 `;
 
 export default GuidePage;
-
-//return <React.Fragment>{pageData === null ? <HomeSkeleton pageType={pageType} /> : renderPage()}</React.Fragment>
