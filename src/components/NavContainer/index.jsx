@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Cosmic from 'cosmicjs';
 import styled from 'styled-components';
+import { keyframes } from 'styled-components';
 import NavItem from '../NavItem';
 import { NavLink } from 'react-router-dom';
 
@@ -57,7 +58,11 @@ const NavContainer = () => {
 		);
 	}
 
-	return <React.Fragment>{navData && renderNav()}</React.Fragment>;
+	return (
+		<React.Fragment>
+			<React.Fragment>{navData === null ? <NavSkeleton /> : renderNav()}</React.Fragment>
+		</React.Fragment>
+	);
 };
 
 const NavBase = styled.nav`
@@ -88,6 +93,26 @@ const NavBase = styled.nav`
 			}
 		}
 	}
+`;
+
+const loadingNav = keyframes`
+	from {
+			width: 100px;
+		}
+
+		to {
+			width: 800px;
+		}
+`;
+const NavSkeleton = styled.div`
+	width: 380px;
+	height: 75px;
+	background-color: black;
+	opacity: .5;
+	position: absolute;
+	top: 5px;
+	border-radius: 10px;
+	animation: ${loadingNav} 2.5s ease-out infinite;
 `;
 
 export default NavContainer;

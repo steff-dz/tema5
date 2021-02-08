@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import HomeSkeleton from '../../components/HomeSkeleton';
+import PageSkeleton from '../../components/PageSkeleton';
 import Cosmic from 'cosmicjs';
 import Mapbox, { Popup } from 'mapbox-gl';
 import DefaultCard from '../../components/DefaultCard';
@@ -290,7 +290,7 @@ const GuidePage = () => {
 		);
 	}
 
-	return <React.Fragment>{pageData === null ? <HomeSkeleton pageColor={'#030303'} /> : renderPage()}</React.Fragment>;
+	return <React.Fragment>{pageData === null ? <PageSkeleton pageColor={'#030303'} /> : renderPage()}</React.Fragment>;
 };
 
 const MainBase = styled.main`

@@ -2,10 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import { keyframes } from 'styled-components';
 
-const Skeleton = ({ pageColor }) => {
+const PageSkeleton = ({ pageColor }) => {
 	return (
 		<SkeletonBase pageColor={pageColor}>
-			<NavSkeleton />
 			<Loader />
 		</SkeletonBase>
 	);
@@ -21,16 +20,6 @@ const spin = keyframes`
 		}
 `;
 
-const loadingNav = keyframes`
-	from {
-			width: 100px;
-		}
-
-		to {
-			width: 800px;
-		}
-`;
-
 const SkeletonBase = styled.div`
 	width: 100vw;
 	height: 100vh;
@@ -38,17 +27,6 @@ const SkeletonBase = styled.div`
 	position: relative;
 	display: flex;
 	flex-direction: column;
-`;
-
-const NavSkeleton = styled.div`
-	width: 380px;
-	height: 75px;
-	background-color: black;
-	opacity: .5;
-	position: absolute;
-	top: 5px;
-	border-radius: 10px;
-	animation: ${loadingNav} 2.5s ease-out infinite;
 `;
 
 const Loader = styled.div`
@@ -62,4 +40,4 @@ const Loader = styled.div`
 	animation: ${spin} 2.5s linear infinite;
 `;
 
-export default Skeleton;
+export default PageSkeleton;

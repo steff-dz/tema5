@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Cosmic from 'cosmicjs';
 import styled from 'styled-components';
-import HomeSkeleton from '../../components/HomeSkeleton';
+import PageSkeleton from '../../components/PageSkeleton';
 
 const LandingPage = () => {
 	const [ pageData, setPageData ] = useState(null);
@@ -34,7 +34,7 @@ const LandingPage = () => {
 		);
 	}
 
-	return <React.Fragment>{pageData === null ? <HomeSkeleton pageColor={'#01214a'} /> : renderPage()}</React.Fragment>;
+	return <React.Fragment>{pageData === null ? <PageSkeleton pageColor={'#01214a'} /> : renderPage()}</React.Fragment>;
 };
 const MainBase = styled.main`
 	height: 100vh;
