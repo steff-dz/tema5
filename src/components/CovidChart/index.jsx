@@ -25,20 +25,24 @@ const CovidChart = ({ chartData, displayMode }) => {
 				newChartData.x.push(el.date);
 			});
 
-			if (displayMode === 'Cases') {
-				chartData.forEach((el) => {
-					newChartData.y.push(el.cases);
-				});
-			} else if (displayMode === 'New Cases') {
-				chartData.forEach((el) => {
-					newChartData.y.push(el.newCases);
-				});
-			} else if (displayMode === 'Deaths') {
-				chartData.forEach((el) => {
-					newChartData.y.push(el.deaths);
-				});
-			} else {
-				console.log('its not working!');
+			switch (displayMode) {
+				case 'Cases':
+					chartData.forEach((el) => {
+						newChartData.y.push(el.cases);
+					});
+					break;
+				case 'New Cases':
+					chartData.forEach((el) => {
+						newChartData.y.push(el.newCases);
+					});
+					break;
+				case 'Deaths':
+					chartData.forEach((el) => {
+						newChartData.y.push(el.deaths);
+					});
+					break;
+				default:
+					console.log('there is an error in the switch statement.');
 			}
 
 			let newChartState = {

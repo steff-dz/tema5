@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import Skeleton from '../../components/Skeleton';
+import HomeSkeleton from '../../components/HomeSkeleton';
 import Cosmic from 'cosmicjs';
 import Mapbox, { Popup } from 'mapbox-gl';
 import DefaultCard from '../../components/DefaultCard';
@@ -284,7 +284,7 @@ const GuidePage = () => {
 		);
 	}
 
-	return <React.Fragment>{pageData === null ? <Skeleton /> : renderPage()}</React.Fragment>;
+	return <React.Fragment>{pageData === null ? <HomeSkeleton /> : renderPage()}</React.Fragment>;
 };
 
 const MainBase = styled.main`

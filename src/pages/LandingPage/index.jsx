@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Cosmic from 'cosmicjs';
 import styled from 'styled-components';
-import Skeleton from '../../components/Skeleton';
+import HomeSkeleton from '../../components/HomeSkeleton';
 
 const LandingPage = () => {
 	const [ pageData, setPageData ] = useState(null);
@@ -34,7 +34,7 @@ const LandingPage = () => {
 		);
 	}
 
-	return <React.Fragment>{pageData === null ? <Skeleton /> : renderPage()}</React.Fragment>;
+	return <React.Fragment>{pageData === null ? <HomeSkeleton /> : renderPage()}</React.Fragment>;
 };
 const MainBase = styled.main`
 	height: 100vh;
@@ -72,15 +72,14 @@ const MainBase = styled.main`
 		}
 	}
 
-	@media only screen and (max-width: 800px) {
+	@media only screen and (max-width: 1100px) {
 		background-color: #012c5a;
 		display: flex;
 		flex-direction: column;
 		align-content: center;
 		height: 100vh;
 		div {
-			margin-top: 12%;
-
+			margin-top: 80px;
 			width: 100%;
 			height: 100%;
 
@@ -92,7 +91,7 @@ const MainBase = styled.main`
 
 			h1 {
 				font-size: 3rem;
-				margin-top: 5%;
+				margin-top: 0;
 				margin-bottom: 15px;
 			}
 
@@ -115,7 +114,7 @@ const MainBase = styled.main`
 	@media only screen and (max-width: 500px) {
 		div {
 			h1 {
-				margin-top: 13%;
+				margin-top: 20px;
 				font-size: 2.5rem;
 			}
 

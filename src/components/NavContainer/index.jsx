@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useLayoutEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Cosmic from 'cosmicjs';
 import styled from 'styled-components';
 import NavItem from '../NavItem';

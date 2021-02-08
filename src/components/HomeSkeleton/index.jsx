@@ -13,7 +13,7 @@ const Skeleton = () => {
 const SkeletonBase = styled.div`
 	width: 100vw;
 	height: 100vh;
-	background-color: #012c5a;
+	background-color: #333;
 	position: relative;
 	display: flex;
 	flex-direction: column;
@@ -35,7 +35,7 @@ const SkeletonBase = styled.div`
 		border-radius: 50%;
 		align-self: center;
 		margin-top: 20%;
-		border: 10px solid #012244;
+		border: 10px solid #202020;
 		border-top: 10px solid white;
 		animation: spin 2.5s linear infinite;
 	}
