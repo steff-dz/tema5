@@ -9,6 +9,7 @@ import CovidChart from '../../components/CovidChart';
 
 let map = null;
 const covidKey = process.env.COVIDNOW_API_KEY;
+const pageType = 'guide';
 
 export const geoJson = {
 	type: 'FeatureCollection',
@@ -176,7 +177,6 @@ const GuidePage = () => {
 						setVenue(venueToPass);
 					});
 					el.addEventListener('mouseenter', function() {
-						console.log('you are hovering');
 						let popup = new Mapbox.Popup({
 							closeButton: false,
 							closeOnClick: false
@@ -284,7 +284,7 @@ const GuidePage = () => {
 		);
 	}
 
-	return <React.Fragment>{pageData === null ? <HomeSkeleton /> : renderPage()}</React.Fragment>;
+	return <React.Fragment>{pageData === null ? <HomeSkeleton pageType={pageType} /> : renderPage()}</React.Fragment>;
 };
 
 const MainBase = styled.main`
@@ -413,5 +413,3 @@ const MainBase = styled.main`
 `;
 
 export default GuidePage;
-
-//@media only screen and (max-width: 1024px){}

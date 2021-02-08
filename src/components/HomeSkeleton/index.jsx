@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Skeleton = () => {
+const Skeleton = ({ pageType }) => {
 	return (
-		<SkeletonBase>
+		<SkeletonBase props={pageType}>
 			<div id="nav-skeleton" />
-			<div id="loader" />
+			<Loader />
 		</SkeletonBase>
 	);
 };
@@ -13,7 +13,8 @@ const Skeleton = () => {
 const SkeletonBase = styled.div`
 	width: 100vw;
 	height: 100vh;
-	background-color: #333;
+	/* background-color: black; */
+	background-color: ${(props) => (props === 'guide' ? '#333' : '#01214a')};
 	position: relative;
 	display: flex;
 	flex-direction: column;
@@ -29,17 +30,6 @@ const SkeletonBase = styled.div`
 		animation: loadingNav 2.5s ease-out infinite;
 	}
 
-	#loader {
-		width: 100px;
-		height: 100px;
-		border-radius: 50%;
-		align-self: center;
-		margin-top: 20%;
-		border: 10px solid #202020;
-		border-top: 10px solid white;
-		animation: spin 2.5s linear infinite;
-	}
-
 	@keyframes loadingNav {
 		from {
 			width: 100px;
@@ -49,6 +39,17 @@ const SkeletonBase = styled.div`
 			width: 800px;
 		}
 	}
+`;
+
+const Loader = styled.div`
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
+	align-self: center;
+	margin-top: 20%;
+	border: 10px solid rgba(0, 3, 51, .5);
+	border-top: 10px solid white;
+	animation: spin 2.5s linear infinite;
 
 	@keyframes spin {
 		from {

@@ -28,19 +28,19 @@ const NavContainer = () => {
 			});
 	}, []);
 
-	// useEffect(() => {
-	// 	window.addEventListener(
-	// 		'scroll',
-	// 		() => {
-	// 			if (window.scrollY > 80) {
-	// 				navElement.current.style.opacity = '1';
-	// 			} else {
-	// 				navElement.current.style.opacity = '0.8';
-	// 			}
-	// 		},
-	// 		true
-	// 	);
-	// }, []);
+	useEffect(() => {
+		window.addEventListener(
+			'scroll',
+			() => {
+				if (window.scrollY > 80) {
+					navElement.current.style.opacity = '1';
+				} else {
+					navElement.current.style.opacity = '0.8';
+				}
+			},
+			true
+		);
+	}, []);
 
 	function renderNav() {
 		return (
