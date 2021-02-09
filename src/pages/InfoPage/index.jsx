@@ -1,22 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Cosmic from 'cosmicjs';
-import Plot from 'react-plotly.js';
 import PageSkeleton from '../../components/PageSkeleton';
+import PageWrapper from '../../components/PageWrapper';
 
 const InfoPage = () => {
 	const [ pageData, setPageData ] = useState(null);
-	// const [ chartState, setChartState ] = useState({
-	// 	data: [],
-	// 	layout: {
-	// 		width: 800,
-	// 		height: 400,
-	// 		title: ''
-	// 	},
-	// 	frames: [],
-	// 	config: {}
-	// });
-	const [ homicideData, setHomicideData ] = useState(null);
 
 	useEffect(() => {
 		const client = new Cosmic();
@@ -39,33 +28,22 @@ const InfoPage = () => {
 			});
 	}, []);
 
-	useEffect(() => {
-		fetch(`https://data.cityofchicago.org/resource/qzdf-xmn8.json?primary_type=HOMICIDE`)
-			.then((response) => response.json())
-			.then((data) => {
-				setHomicideData(data);
-			})
-			.catch((error) => {
-				console.log(error);
-			});
-	}, []);
+	function renderPage() {
+		return (
+			<PageWrapper>
+				<InfoContainer dangerouslySetInnerHTML={{ __html: pageData.content }} />
+			</PageWrapper>
+		);
+	}
 
-	// function renderChart() {
-	// 	return (
-	// 		<React.Fragment>
-	// 			<Plot
-	// 				data={chartState.data}
-	// 				layout={chartState.layout}
-	// 				frames={chartState.frames}
-	// 				config={chartState.config}
-	// 				onInitialized={(figure) => setChartState(figure)}
-	// 				onUpdate={(figure) => setChartState(figure)}
-	// 			/>
-	// 		</React.Fragment>
-	// 	);
-	// }
-
-	return <PageSkeleton pageColor={'#01214a'} />;
+	return <React.Fragment>{pageData === null ? <PageSkeleton pageColor={'#030303'} /> : renderPage()}</React.Fragment>;
 };
+
+const InfoContainer = styled.p`
+	margin-top: 100px;
+	color: white;
+	text-align: center;
+	height: 100vh;
+`;
 
 export default InfoPage;

@@ -1,14 +1,18 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import PageSkeleton from '../../components/PageSkeleton';
+import PageWrapper from '../../components/PageWrapper';
 import Cosmic from 'cosmicjs';
 import Mapbox, { Popup } from 'mapbox-gl';
 import DefaultCard from '../../components/DefaultCard';
 import InfoCard from '../../components/InfoCard';
 import CovidChart from '../../components/CovidChart';
 
+//Variables and keys/tokens--------------------------------------------
 let map = null;
+
 const covidKey = process.env.COVIDNOW_API_KEY;
+Mapbox.accessToken = process.env.MAPBOX_API_KEY;
 
 export const geoJson = {
 	type: 'FeatureCollection',
@@ -87,11 +91,10 @@ const GuidePage = () => {
 	const [ recentCovidCases, setRecentCovidCases ] = useState(null);
 	const [ displayMode, setDisplayMode ] = useState('');
 
-	//Extra things I will need-----------------------------------------
+	//Variable for ref hook-----------------------------------------
 	const mapElement = useRef();
-	Mapbox.accessToken = process.env.MAPBOX_API_KEY;
 
-	//Getting information I need from Cosmic JS----------------------------------
+	//Call to Cosmic JS-----------------------------------------------------
 	useEffect(() => {
 		const client = new Cosmic();
 
@@ -139,7 +142,6 @@ const GuidePage = () => {
 						type: 'geojson',
 						data: geoJson
 					});
-
 					map.addLayer({
 						id: 'cook-county',
 						type: 'fill',
@@ -152,12 +154,18 @@ const GuidePage = () => {
 					});
 					map.addControl(new Mapbox.NavigationControl());
 				});
+				map.on('idle', () => {
+					let idlePopUp = new Mapbox.Popup({ closeOnMove: true, closeButton: false })
+						.setLngLat([ -87.893348, 42.024137 ])
+						.setHTML('<p>Cook County, Illinois</p>')
+						.addTo(map);
+				});
 			}
 		},
 		[ pageData ]
 	);
 
-	//Creating map markers------------------------------------------------------------
+	//Creating map markers & functionality------------------------------------------------------------
 	useEffect(
 		() => {
 			if (mapMarkersState === null) {
@@ -238,6 +246,7 @@ const GuidePage = () => {
 			});
 	}, []);
 
+	//Functions for rendering cards and the page-------------------------------------------------
 	function defaultCard() {
 		return <DefaultCard defaultText={pageData.content} />;
 	}
@@ -248,13 +257,13 @@ const GuidePage = () => {
 
 	function renderPage() {
 		return (
-			<MainBase>
-				<section id="guide-container">
+			<PageWrapper>
+				<GuideContainer>
 					<div id="card-container">{venue === null ? defaultCard() : renderInfoCard()}</div>
 					<div id="map-container" ref={mapElement} />
-				</section>
+				</GuideContainer>
 
-				<section id="corona-container">
+				<CoronaContainer>
 					<i className="fas fa-chevron-down" />
 					<h2>Recent Covid Stats in Cook County</h2>
 					<h3>
@@ -286,148 +295,129 @@ const GuidePage = () => {
 							''
 						)}
 					</article>
-				</section>
-			</MainBase>
+				</CoronaContainer>
+			</PageWrapper>
 		);
 	}
 
 	return <React.Fragment>{pageData === null ? <PageSkeleton pageColor={'#030303'} /> : renderPage()}</React.Fragment>;
 };
 
-const MainBase = styled.main`
-	background-color: #030303;
-	overflow: scroll;
+//Styled components--------------------------------------
+const GuideContainer = styled.section`
+	margin-top: 100px;
+	margin-left: auto;
+	margin-right: auto;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 3rem;
+	width: 80vw;
+	height: 75vh;
 
-	#guide-container {
-		margin-top: 100px;
-		margin-left: auto;
-		margin-right: auto;
-		display: grid;
-		grid-template-columns: 1fr 1fr;
-		gap: 3rem;
-		width: 80vw;
-		height: 75vh;
-
-		#card-container {
-			overflow: scroll;
-			overflow-x: hidden;
-			border-radius: 10px;
-			background-color: black;
-			border: 2px solid grey;
-		}
-
-		#map-container {
-			height: 100%;
-			border-radius: 10px;
-
-			.my-marker {
-				display: block;
-				width: 30px;
-				height: 30px;
-				background-size: 30px 30px;
-			}
-
-			.mapboxgl-popup-content {
-				button {
-					font-size: 1.5rem;
-					padding: 0 0.3rem;
-				}
-			}
-
-			.popup-card {
-				h3 {
-					font-size: 1rem;
-				}
-			}
-		}
+	#card-container {
+		overflow: scroll;
+		overflow-x: hidden;
+		border-radius: 10px;
+		background-color: black;
+		border: 2px solid grey;
 	}
 
-	#zoomBtn {
-		position: absolute;
-		top: 100px;
-		right: 175px;
-		padding: .5rem;
-		background-color: white;
-		font-weight: 600;
+	#map-container {
+		height: 100%;
+		border-radius: 10px;
 
-		&:hover {
-			opacity: .8;
-		}
-	}
-	#corona-container {
-		margin-top: 2%;
-		margin-left: auto;
-		margin-right: auto;
-		height: 50vh;
-		width: 90vw;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-
-		.fa-chevron-down {
-			color: white;
-			font-size: 2.3rem;
-			animation: bounce;
-			animation-duration: 2.5s;
-			animation-iteration-count: infinite;
-			margin-bottom: 1%;
+		.my-marker {
+			display: block;
+			width: 30px;
+			height: 30px;
+			background-size: 30px 30px;
 		}
 
-		h2 {
-			color: white;
-			text-align: center;
-			font-size: 2.5rem;
-			font-weight: normal;
-		}
-
-		h3 {
-			color: white;
-			font-weight: normal;
-			font-size: 1.5rem;
-		}
-
-		#button-container {
-			margin-top: .5rem;
-			display: flex;
-			gap: 2rem;
-			width: 100%;
-			justify-content: center;
-
+		.mapboxgl-popup-content {
 			button {
-				margin: 2% 0;
-				font-size: 1.8rem;
-				padding: .8rem;
-				cursor: pointer;
-				color: white;
-				background-color: black;
-				border: 1px solid white;
-
-				&:hover {
-					opacity: 0.5;
-				}
+				font-size: 1.5rem;
+				padding: 0 0.3rem;
 			}
 		}
 
-		article {
-			color: white;
+		.popup-card {
+			h3 {
+				font-size: 1rem;
+			}
 		}
 	}
 
 	@media only screen and (max-width: 1000px) {
-		#guide-container {
-			display: flex;
-			flex-direction: column;
+		display: flex;
+		flex-direction: column;
 
-			height: fit-content;
+		height: fit-content;
 
-			#card-container {
-				height: 50vh;
-			}
+		#card-container {
+			height: 50vh;
+		}
 
-			#map-container {
-				height: 50vh;
+		#map-container {
+			height: 50vh;
+		}
+	}
+`;
+const CoronaContainer = styled.section`
+	margin-top: 2%;
+	margin-left: auto;
+	margin-right: auto;
+	height: 50vh;
+	width: 90vw;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	.fa-chevron-down {
+		color: white;
+		font-size: 2.3rem;
+		animation: bounce;
+		animation-duration: 2.5s;
+		animation-iteration-count: infinite;
+		margin-bottom: 1%;
+	}
+
+	h2 {
+		color: white;
+		text-align: center;
+		font-size: 2.5rem;
+		font-weight: normal;
+	}
+
+	h3 {
+		color: white;
+		font-weight: normal;
+		font-size: 1.5rem;
+	}
+
+	#button-container {
+		margin-top: .5rem;
+		display: flex;
+		gap: 2rem;
+		width: 100%;
+		justify-content: center;
+
+		button {
+			margin: 2% 0;
+			font-size: 1.8rem;
+			padding: .8rem;
+			cursor: pointer;
+			color: white;
+			background-color: black;
+			border: 1px solid white;
+
+			&:hover {
+				opacity: 0.5;
 			}
 		}
+	}
+
+	article {
+		color: white;
 	}
 `;
 

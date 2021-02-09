@@ -13,6 +13,7 @@ const CovidChart = ({ chartData, displayMode }) => {
 		config: {}
 	});
 
+	//Filtering different types of data to the chart based off of the display mode value-----------------------
 	useEffect(
 		() => {
 			let newChartData = {

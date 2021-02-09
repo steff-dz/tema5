@@ -9,6 +9,7 @@ const NavContainer = () => {
 	const navElement = useRef(null);
 	const [ navData, setNavData ] = useState(null);
 
+	//Call to Cosmic JS--------------------------------
 	useEffect(() => {
 		const client = new Cosmic();
 		const bucket = client.bucket({
@@ -29,6 +30,7 @@ const NavContainer = () => {
 			});
 	}, []);
 
+	//Scroll effect changing Navbar opacity---------------------
 	useEffect(() => {
 		window.addEventListener(
 			'scroll',
@@ -64,7 +66,7 @@ const NavContainer = () => {
 		</React.Fragment>
 	);
 };
-
+//Styled components--------------------------------------
 const NavBase = styled.nav`
 	position: fixed;
 	z-index: 100;
@@ -94,7 +96,6 @@ const NavBase = styled.nav`
 		}
 	}
 `;
-
 const loadingNav = keyframes`
 	from {
 			width: 100px;
