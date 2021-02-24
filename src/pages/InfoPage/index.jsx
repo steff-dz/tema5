@@ -28,6 +28,45 @@ const InfoPage = () => {
 			});
 	}, []);
 
+	useEffect(
+		() => {
+			if (pageData !== null) {
+				// Promise.all([
+				// 	fetch(`https://data.cityofchicago.org/resource/qzdf-xmn8.json?primary_type=HOMICIDE`),
+				// 	fetch(`https://data.cityofchicago.org/resource/qzdf-xmn8.json?primary_type=THEFT`),
+				// 	fetch(`https://data.cityofchicago.org/resource/qzdf-xmn8.json?primary_type=ASSAULT`)
+				// ])
+				// 	.then(function(responses) {
+				// 		return Promise.all(
+				// 			responses.map(function(response) {
+				// 				return response.json();
+				// 			})
+				// 		);
+				// 	})
+				// 	.then(function(data) {
+				// 		console.log(data);
+				// 	})
+				// 	.catch(function(error) {
+				// 		console.log(error);
+				// 	});
+
+				fetch(`https://data.cityofchicago.org/resource/qzdf-xmn8.json?primary_type=THEFT`, {
+					params: {
+						limit: 50000
+					}
+				})
+					.then((response) => response.json())
+					.then((data) => {
+						console.log(data);
+					})
+					.catch((error) => {
+						console.log(error);
+					});
+			}
+		},
+		[ pageData ]
+	);
+
 	function renderPage() {
 		return (
 			<PageWrapper>
